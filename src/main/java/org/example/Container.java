@@ -40,4 +40,59 @@ public class Container<E> {
         }
         //
     }
+
+
+    // class members
+    /// Container root element
+    Node<E> root;
+    //
+
+    // class methods
+    /// Constructor
+    public Container() {
+        root = null;
+    }
+
+    /// Copy constructor. Copies root node with all following nodes
+    public Container(Container<E> source) {
+        root = new Node<>(source.root);
+    }
+
+    /// Inserts item at the start of the container
+    /// @param contents Value that will be inserted
+    public void insertAtStart(E contents) {
+        Node<E> newNode = new Node<>(contents);
+        if (root != null) {
+            newNode.next = root;
+        }
+        root = newNode;
+    }
+
+    /// Inserts item after target node
+    /// @param target Node after which the value will be inserted
+    /// @param contents Value that will be inserted
+    public void insertAfter(Node<E> target, E contents) {
+        if (target != null) {
+            Node<E> newNode = new Node<>(contents);
+            if (target.next != null) {
+                newNode.next = target.next;
+            }
+            target.next = newNode;
+        }
+    }
+
+    /// Inserts item at the end of the container
+    /// @param contents Value that will be inserted
+    public void insertAtEnd(E contents) {
+        if (root == null) { root = new Node<>(contents); }
+        else {
+            Node<E> target = root;
+            // go to the end of the list
+            while (target.next != null) {
+                target = target.next;
+            }
+            target.next = new Node<>(contents);
+        }
+    }
+    //
 }
