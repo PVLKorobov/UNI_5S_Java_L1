@@ -47,6 +47,7 @@ public class Container<E> {
     Node<E> root;
     //
 
+    
     // class methods
     /// Constructor
     public Container() {
@@ -92,6 +93,65 @@ public class Container<E> {
                 target = target.next;
             }
             target.next = new Node<>(contents);
+        }
+    }
+
+    /// Extracts the first node with target value, removing it from the list
+    /// @param pos Position from which the node will be removed
+    /// @return Value stored in the targeted node
+    public E pop(int pos) {
+        if (root != null) {
+            int i = 0;
+            Node<E> cursor = root;
+            while (cursor != null) {
+                if (i == pos) {
+                    removeNode(cursor);
+                    return cursor.contents;
+                }
+                cursor = cursor.next;
+                i += 1;
+            }
+        }
+        return null;
+    }
+
+    /// Returns reference to the node that is behind the target node
+    /// @param target Node that will be the search target
+    /// @return Reference to the Node type object
+    private Node<E> getPrevNode(Node<E> target) {
+        Node<E> prev = root;
+        while (prev.next != target && prev.next != null) {
+            prev = prev.next;
+        }
+        if (prev.next == target) { return prev; }
+        else { return null; }
+    }
+
+    /// Returns reference to the node that contains specified value
+    /// @param targetValue Value by which node will be searched
+    /// @return Reference to the Node type object
+    private Node<E> getNodeByValue(E targetValue) {
+        Node<E> current = root;
+        while (current.next != null) {
+            if (current.contents == targetValue) { return current; }
+        }
+        if (current.contents == targetValue) { return current; }
+        else { return null; }
+    }
+
+    /// Removes target node from container
+    /// @param targetNode Node that will be removed
+    private void removeNode(Node<E> targetNode) {
+        if (targetNode != null) {
+            if (targetNode == root) {
+                root = root.next;
+            }
+            else {
+                Node<E> prevNode = getPrevNode(targetNode);
+                if (prevNode != null) {
+                    prevNode.next = targetNode.next;
+                }
+            }
         }
     }
     //
