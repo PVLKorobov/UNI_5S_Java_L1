@@ -96,23 +96,42 @@ public class Container<E> {
         }
     }
 
-    /// Extracts the first node with target value, removing it from the list
-    /// @param pos Position from which the node will be removed
+    /// Extracts the first node with target position, removing it from the list
+    /// @param pos Target position
     /// @return Value stored in the targeted node
     public E pop(int pos) {
-        if (root != null) {
-            int i = 0;
-            Node<E> cursor = root;
-            while (cursor != null) {
-                if (i == pos) {
-                    removeNode(cursor);
-                    return cursor.contents;
-                }
-                cursor = cursor.next;
-                i += 1;
+        if (root != null)
+        {
+            Node<E> target = getNodeByPosition(pos);
+            if (target != null) {
+                removeNode(target);
+                return target.contents;
             }
         }
         return null;
+    }
+
+    /// Removes the first node with target value from the list
+    /// @param targetValue Value by which node will be searched
+    public void remove(E targetValue) {
+        if (root != null) {
+            Node<E> target = getNodeByValue(targetValue);
+            if (target != null) {
+                removeNode(target);
+            }
+        }
+    }
+
+    /// Removes all nodes with target value from the list
+    /// @param targetValue Value by which nodes will be searched
+    public void removeAll(E targetValue) {
+        if (root != null) {
+            Node<E> target = getNodeByValue(targetValue);
+            while (target != null) {
+                remove(targetValue);
+                target = getNodeByValue(targetValue);
+            }
+        }
     }
 
     /// Returns reference to the node that is behind the target node
@@ -136,6 +155,20 @@ public class Container<E> {
             if (current.contents == targetValue) { return current; }
         }
         if (current.contents == targetValue) { return current; }
+        else { return null; }
+    }
+
+    /// Returns reference to the node that is stored at specified position in container
+    /// @param position Target position
+    /// @return Reference to the Node type object
+    private Node<E> getNodeByPosition(int position) {
+        Node<E> current = root;
+        int i = 0;
+        while (current.next != null) {
+            if (i == position) { return current; }
+            i += 1;
+        }
+        if (i == position) { return current; }
         else { return null; }
     }
 
