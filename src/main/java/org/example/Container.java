@@ -38,6 +38,14 @@ public class Container<E> {
                 next = null;
             }
         }
+
+        public E getContents() {
+            return contents;
+        }
+
+        public void setContents(E newContents) {
+            contents = newContents;
+        }
         //
     }
 
@@ -194,6 +202,10 @@ public class Container<E> {
                 }
             }
         }
+    }
+
+    public Node<E> getRoot() {
+        return root;
     }
     //
 }

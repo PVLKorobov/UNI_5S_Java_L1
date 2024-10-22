@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import org.example.Container;
+import org.example.Container.Node;
 
 /// Container unit-test class.
 /// Provides test methods for the Container class
@@ -18,7 +20,7 @@ public class ContainerTest  {
 
     /// Clears test container reference before each test
     @BeforeEach
-    public void makeNewContainer() {
+    public void clearContainer() {
         testContainer = null;
     }
 
@@ -26,7 +28,14 @@ public class ContainerTest  {
     /// Inserts an array of elements and then asserts the array with container contents
     @Test
     public void insertElementsArrayTest() {
-        // TODO
+        Integer[] testArray = {10, 11, 21, 31, 41};
+        testContainer = new Container<>(testArray);
+
+        Node<Integer> cursor = testContainer.getRoot();
+        Assertions.assertNotEquals(null, cursor);
+        for (int element : testArray) {
+            Assertions.assertEquals(element, cursor.getContents());
+        }
     }
 
     /// Insertion at start test.
