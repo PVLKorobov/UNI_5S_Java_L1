@@ -54,6 +54,14 @@ public class Container<E> {
         root = null;
     }
 
+    /// Array constructor.
+    /// Creates a container object with the elements of given array
+    public Container(E[] inputArray) {
+        for (E element : inputArray) {
+            insertAtEnd(element);
+        }
+    }
+
     /// Copy constructor. Copies root node with all following nodes
     public Container(Container<E> source) {
         root = new Node<>(source.root);
