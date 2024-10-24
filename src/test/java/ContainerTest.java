@@ -2,7 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.example.Container;
-import org.example.Container.Node;
+import org.example.Container.ContainerIterator;
 
 /// Container unit-test class.
 /// Provides test methods for the Container class
@@ -10,6 +10,8 @@ public class ContainerTest  {
     // class members
     /// Test container
     private Container<Integer> testContainer;
+    /// Array of test elements
+    private static final Integer[] testArray = {10, 11, 21, 31, 41, 11};
     //
 
     // class methods
@@ -28,14 +30,16 @@ public class ContainerTest  {
     /// Inserts an array of elements and then asserts the array with container contents
     @Test
     public void insertElementsArrayTest() {
-        Integer[] testArray = {10, 11, 21, 31, 41};
         testContainer = new Container<>(testArray);
 
-        Node<Integer> cursor = testContainer.getRoot();
-        Assertions.assertNotEquals(null, cursor);
+        ContainerIterator<Integer> iterator = testContainer.getIteratorStart();
+        Assertions.assertNotNull(iterator); // iterator shouldn't be null here
         for (int element : testArray) {
-            Assertions.assertEquals(element, cursor.getContents());
+            Assertions.assertEquals(element, iterator.getCurrent().getContents());
+            iterator.next();
         }
+        // container should only contain the given array so the iterator should be pointing to null
+        Assertions.assertNull(iterator.getCurrent());
     }
 
     /// Insertion at start test.
@@ -43,7 +47,10 @@ public class ContainerTest  {
     /// container element with the one added
     @Test
     public void insertAtStartTest() {
-        // TODO
+        testContainer = new Container<>(testArray);
+
+        testContainer.insertAtStart(9);
+        Assertions.assertEquals(9, testContainer.getRoot().getContents());
     }
 
     /// Insertion at end test.
@@ -51,7 +58,10 @@ public class ContainerTest  {
     /// container element with the one that should be added
     @Test
     public void insertAtEndTest() {
-        // TODO
+        testContainer = new Container<>(testArray);
+
+        testContainer.insertAtStart(9);
+        Assertions.assertEquals(9, testContainer.getRoot().getContents());
     }
 
     /// Insertion after specific element test.
