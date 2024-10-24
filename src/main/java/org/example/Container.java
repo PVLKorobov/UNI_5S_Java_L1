@@ -39,14 +39,47 @@ public class Container<E> {
             }
         }
 
+        /// Node contents getter
+        /// @return Element contained within the node
         public E getContents() {
             return contents;
         }
 
-        public void setContents(E newContents) {
+        /// Node contents setter
+        /// @param newContents Value that will be stored in the node
+        public void getContents(E newContents) {
             contents = newContents;
         }
         //
+    }
+
+    /// Container iterator class
+    /// Provides methods to cycle through the container object
+    public static class ContainerIterator<E> {
+        // class members
+        /// Current node reference
+        private Node<E> current;
+        //
+
+        // class methods
+        /// Target node constructor.
+        /// Creates iterator pointing to the given node in the container
+        /// @param target Node object that iterator will point at
+        private ContainerIterator(Node<E> target) {
+            current = target;
+        }
+
+        /// Moves iterator to the next node.
+        /// May point iterator to a null
+        public void next() {
+            current = current.next;
+        }
+
+        /// Tells if iterator has a node after it
+        /// @return True if next reference is not null, false otherwise
+        public boolean hasNext() {
+            return current.next != null;
+        }
     }
 
 
@@ -64,6 +97,7 @@ public class Container<E> {
 
     /// Array constructor.
     /// Creates a container object with the elements of given array
+    /// @param inputArray an array of elements
     public Container(E[] inputArray) {
         for (E element : inputArray) {
             insertAtEnd(element);
@@ -71,6 +105,7 @@ public class Container<E> {
     }
 
     /// Copy constructor. Copies root node with all following nodes
+    /// @param source a Container type object
     public Container(Container<E> source) {
         root = new Node<>(source.root);
     }
@@ -114,7 +149,7 @@ public class Container<E> {
 
     /// Extracts the first node with target position, removing it from the list
     /// @param pos Target position
-    /// @return Value stored in the targeted node
+    /// @return Contents of the target node. Returns null if target doesn't exist
     public E pop(int pos) {
         if (root != null)
         {
@@ -152,7 +187,7 @@ public class Container<E> {
 
     /// Returns reference to the node that is behind the target node
     /// @param target Node that will be the search target
-    /// @return Reference to the Node type object
+    /// @return Reference to the Node type object. Returns null if target doesn't exist
     private Node<E> getPrevNode(Node<E> target) {
         Node<E> prev = root;
         while (prev.next != target && prev.next != null) {
@@ -164,7 +199,7 @@ public class Container<E> {
 
     /// Returns reference to the node that contains specified value
     /// @param targetValue Value by which node will be searched
-    /// @return Reference to the Node type object
+    /// @return Reference to the Node type object. Returns null if target doesn't exist
     private Node<E> getNodeByValue(E targetValue) {
         Node<E> current = root;
         while (current.next != null) {
@@ -176,7 +211,7 @@ public class Container<E> {
 
     /// Returns reference to the node that is stored at specified position in container
     /// @param position Target position
-    /// @return Reference to the Node type object
+    /// @return Reference to the Node type object. Returns null if target doesn't exist
     private Node<E> getNodeByPosition(int position) {
         Node<E> current = root;
         int i = 0;
@@ -204,8 +239,65 @@ public class Container<E> {
         }
     }
 
+    /// Container root getter
+    /// @return Reference to container root node. . Returns null if the container is empty
     public Node<E> getRoot() {
         return root;
+    }
+
+    /// Creates an iterator object pointing to the first element of the container
+    /// @return Reference to ContainerIterator type object, pointing at the first element of the container.
+    /// Returns null if the container is empty
+    public ContainerIterator<E> getIteratorStart() {
+        if (root == null) { return null; }
+        else {
+            return new ContainerIterator<>(root);
+        }
+    }
+
+    /// Creates an iterator object pointing to the first element of the container
+    /// @return Reference to ContainerIterator type object, pointing at the first element of the container.
+    /// Returns null if the container is empty
+    public ContainerIterator<E> getIteratorEnd() {
+        if (root == null) { return null; }
+        else {
+            Node<E> target = root;
+            // go to the end of the list
+            while (target.next != null) {
+                target = target.next;
+            }
+            return new ContainerIterator<>(target);
+        }
+    }
+
+    /// Creates an iterator object pointing to the element at given position
+    /// @param position Position of target node
+    /// @return Reference to ContainerIterator type object, pointing at target element of the container.
+    /// Returns null if the container is empty or target doesn't exist
+    public ContainerIterator<E> getIteratorAt(int position) {
+        if (root == null) { return null; }
+        else {
+            Node<E> target = getNodeByPosition(position);
+            if (target == null) { return null; }
+            else {
+                return new ContainerIterator<>(target);
+            }
+        }
+    }
+
+    /// Creates an iterator object pointing to the first element with given contents value
+    /// @param targetValue Value by which node will be searched
+    /// @return Reference to ContainerIterator type object, pointing at the target element of the container.
+    /// Returns null if the container is empty or target doesn't exist
+    public ContainerIterator<E> getIteratorAt(E targetValue) {
+        if (root == null) { return null; }
+        else {
+            Node<E> target = getNodeByValue(targetValue);
+            if (target == null) { return null; }
+            else {
+                return new ContainerIterator<>(target);
+            }
+        }
     }
     //
 }
