@@ -127,15 +127,17 @@ public class Container<E> {
     }
 
     /// Inserts item after target node
-    /// @param target Node after which the value will be inserted
-    /// @param contents Value that will be inserted
-    public void insertAfter(Node<E> target, E contents) {
-        if (target != null) {
-            Node<E> newNode = new Node<>(contents);
-            if (target.next != null) {
-                newNode.next = target.next;
+    /// @param targetValue Value by which node will be searched
+    /// @param contents Value that will be inserted after the target node
+    public void insertAfter(E targetValue, E contents) {
+        if (root == null) { root = new Node<>(contents); }
+        else {
+            Node<E> target = getNodeByValue(targetValue);
+            if (target != null) {
+                Node<E> newNode = new Node<>(contents);
+                if (target.next != null) { newNode.next = target.next; }
+                target.next = newNode;
             }
-            target.next = newNode;
         }
     }
 
