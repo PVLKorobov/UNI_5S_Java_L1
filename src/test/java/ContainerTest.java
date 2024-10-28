@@ -23,15 +23,13 @@ public class ContainerTest  {
     /// Clears test container reference before each test
     @BeforeEach
     public void clearContainer() {
-        testContainer = null;
+        testContainer = new Container<>(testArray);
     }
 
     /// Element array insertion from end test.
     /// Inserts an array of elements and then asserts the array with container contents
     @Test
     public void insertElementsArrayTest() {
-        testContainer = new Container<>(testArray);
-
         ContainerIterator<Integer> iterator = testContainer.getIteratorStart();
         Assertions.assertNotNull(iterator); // iterator shouldn't be null here
         for (int element : testArray) {
@@ -47,8 +45,6 @@ public class ContainerTest  {
     /// container element with the one added
     @Test
     public void insertAtStartTest() {
-        testContainer = new Container<>(testArray);
-
         testContainer.insertAtStart(9);
         Assertions.assertEquals(9, testContainer.getRoot().getContents());
     }
@@ -58,8 +54,6 @@ public class ContainerTest  {
     /// container element with the one that should be added
     @Test
     public void insertAtEndTest() {
-        testContainer = new Container<>(testArray);
-
         testContainer.insertAtStart(9);
         Assertions.assertEquals(9, testContainer.getIteratorEnd().getCurrent().getContents());
     }
@@ -69,8 +63,6 @@ public class ContainerTest  {
     /// and asserts it with the one that should be added
     @Test
     public void insertAfterTest() {
-        testContainer = new Container<>(testArray);
-
         Integer targetValue = 21;
         Integer newValue = 9;
 
@@ -83,7 +75,10 @@ public class ContainerTest  {
     /// and asserts that it is no longer present in the container
     @Test
     public void popTest() {
-        // TODO
+        int targetValue = 31;
+        int poppedValue = testContainer.pop(3); // passed target value node position in the container
+        Assertions.assertFalse(testContainer.includes(targetValue));
+        Assertions.assertEquals(targetValue, poppedValue);
     }
 
     /// Element removal test.
@@ -91,7 +86,9 @@ public class ContainerTest  {
     /// and asserts that it is no longer present in the container
     @Test
     public void removeTest() {
-        // TODO
+        int targetValue = 41;
+        testContainer.remove(targetValue);
+        Assertions.assertFalse(testContainer.includes(targetValue));
     }
 
     /// Repeating elements removal test.
@@ -99,7 +96,9 @@ public class ContainerTest  {
     /// and asserts that none of them are present in the container anymore
     @Test
     public void removeAllTest() {
-        // TODO
+        int targetValue = 1;
+        testContainer.removeAll(targetValue);
+        Assertions.assertFalse(testContainer.includes(targetValue));
     }
 
     /// Get previous node test.
