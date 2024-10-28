@@ -100,21 +100,5 @@ public class ContainerTest  {
         testContainer.removeAll(targetValue);
         Assertions.assertFalse(testContainer.includes(targetValue));
     }
-
-    /// Get previous node test.
-    /// Adds two elements to the container. Calls previous node getter
-    /// for the last element and asserts that the result node matches the first one
-    @Test
-    public void getPrevNodeTest() {
-        // TODO
-    }
-
-    /// Get node by position test.
-    /// Gets a node by getter by position method
-    /// and asserts its value with the value of the node in the container
-    @Test
-    public void getNodeByPositionTest() {
-        // TODO
-    }
     //
 }
