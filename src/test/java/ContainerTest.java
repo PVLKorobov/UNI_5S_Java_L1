@@ -54,7 +54,7 @@ public class ContainerTest  {
     /// container element with the one that should be added
     @Test
     public void insertAtEndTest() {
-        testContainer.insertAtStart(9);
+        testContainer.insertAtEnd(9);
         Assertions.assertEquals(9, testContainer.getIteratorEnd().getCurrent().getContents());
     }
 

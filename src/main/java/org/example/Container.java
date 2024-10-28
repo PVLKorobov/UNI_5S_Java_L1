@@ -223,6 +223,7 @@ public class Container<E> {
         Node<E> current = root;
         while (current.next != null) {
             if (current.contents == targetValue) { return current; }
+            current = current.next;
         }
         if (current.contents == targetValue) { return current; }
         else { return null; }
@@ -236,6 +237,7 @@ public class Container<E> {
         int i = 0;
         while (current.next != null) {
             if (i == position) { return current; }
+            current = current.next;
             i += 1;
         }
         if (i == position) { return current; }
