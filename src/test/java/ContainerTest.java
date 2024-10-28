@@ -61,7 +61,7 @@ public class ContainerTest  {
         testContainer = new Container<>(testArray);
 
         testContainer.insertAtStart(9);
-        Assertions.assertEquals(9, testContainer.getRoot().getContents());
+        Assertions.assertEquals(9, testContainer.getIteratorEnd().getCurrent().getContents());
     }
 
     /// Insertion after specific element test.
@@ -69,7 +69,13 @@ public class ContainerTest  {
     /// and asserts it with the one that should be added
     @Test
     public void insertAfterTest() {
-        // TODO
+        testContainer = new Container<>(testArray);
+
+        Integer targetValue = 21;
+        Integer newValue = 9;
+
+        testContainer.insertAfter(targetValue, newValue);
+        Assertions.assertTrue(testContainer.includes(newValue));
     }
 
     /// Element popping test.
