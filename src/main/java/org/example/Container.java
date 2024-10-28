@@ -193,6 +193,17 @@ public class Container<E> {
         }
     }
 
+    /// Checks if at least one node with target value exists in the container
+    /// @param targetValue Value by which the node will be searched
+    /// @return True if node with target value exists, false otherwise
+    public boolean includes(E targetValue) {
+        if (root == null) { return false; }
+        else {
+            Node<E> target = getNodeByValue(targetValue);
+            return target != null;
+        }
+    }
+
     /// Returns reference to the node that is behind the target node
     /// @param target Node that will be the search target
     /// @return Reference to the Node type object. Returns null if target doesn't exist
